@@ -1,4 +1,14 @@
 
+### Generated SSL (see Makefile `make init`; private keys stay local) ###
+/config/ssl/
+
+### Makefile / Symfony compose backups ###
+/compose.yaml.symfony-bak
+/compose.override.yaml.symfony-bak
+
+### IDE / OS ###
+.DS_Store
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -8,3 +18,16 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
+
+###> symfony/asset-mapper ###
+/public/assets/
+/assets/vendor/
+###< symfony/asset-mapper ###
+
+dump.sql.gz
+/config/docker/ssl/
