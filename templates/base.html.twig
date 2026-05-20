@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8">
+
+    {# Title вкладки браузера — переопределяется в дочерних шаблонах #}
+    <title>{% block title %}Silicon Symfony Demo{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# Скрипт переключения светлой/тёмной темы — обязательно в <head>,
+       чтобы тема применялась до первой отрисовки страницы #}
+    <script src="{{ asset('assets/js/theme-switcher.js') }}"></script>
+
+    {# Иконки Boxicons (используются в навбаре, хлебных крошках, футере) #}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}">
+
+    {# Основные стили Silicon (Bootstrap 5 + кастомные стили темы) #}
+    <link rel="stylesheet" href="{{ asset('assets/css/silicon.css') }}">
+</head>
+<body>
+
+{# ===========================================================================
+   PAGE-WRAPPER — оборачивает header и весь контент страницы,
+   чтобы футер прижимался к низу окна (sticky footer Silicon).
+   =========================================================================== #}
+<main class="page-wrapper">
+
+    {# =======================================================================
+       HEADER + MENU
+       Верхняя фиксированная навигация (Silicon: navbar fixed-top).
+       Содержит: логотип, offcanvas-меню со ссылками, переключатель темы,
+       кнопку-бургер для мобильных.
+       ======================================================================= #}
+    <header class="header navbar navbar-expand-lg bg-light shadow-sm shadow-dark-mode-none fixed-top">
+        <div class="container px-3">
+
+            {# Логотип-ссылка на главную страницу блога #}
+            <a href="{{ path('app_home') }}" class="navbar-brand pe-3">
+                <img src="{{ asset('assets/img/logo.svg') }}" width="47" alt="Silicon">
+                Silicon
+            </a>
+
+            {# Offcanvas-контейнер меню (на >= lg отображается как обычный navbar,
+               на мобильных — как боковая выезжающая панель) #}
+            <div id="navbarNav" class="offcanvas offcanvas-end">
+                <div class="offcanvas-header border-bottom">
+                    <h5 class="offcanvas-title">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+
+                    {# Ссылки меню — только страницы проекта (Blog + About) #}
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="{{ path('app_home') }}" class="nav-link">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('app_about') }}" class="nav-link">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            {# Переключатель темы Light / Dark (поведение обеспечивает theme-switcher.js) #}
+            <div class="form-check form-switch mode-switch pe-lg-1 ms-auto me-4" data-bs-toggle="mode">
+                <input type="checkbox" class="form-check-input" id="theme-mode">
+                <label class="form-check-label d-none d-sm-block" for="theme-mode">Light</label>
+                <label class="form-check-label d-none d-sm-block" for="theme-mode">Dark</label>
+            </div>
+
+            {# Кнопка-«бургер» для открытия offcanvas-меню на мобильных #}
+            <button type="button" class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </header>
+
+    {# =======================================================================
+       BODY — основной контент страницы.
+       Дочерние шаблоны (Blog / About) вставляют сюда свой контент:
+       h1, текст, список постов, сайдбар и т.д.
+       ======================================================================= #}
+    {% block body %}{% endblock %}
+
+</main>
+
+{# ===========================================================================
+   FOOTER + MENU
+   Тёмный футер Silicon: бренд + описание, колонки ссылок (меню сайта,
+   соцсети, контакты), копирайт.
+   =========================================================================== #}
+<footer class="footer bg-dark pt-5 pb-4 pb-lg-5" data-bs-theme="dark">
+    <div class="container pt-lg-4">
+        <div class="row pb-5">
+
+            {# Колонка 1: лого + краткое описание проекта #}
+            <div class="col-lg-4 col-md-6">
+                <div class="navbar-brand text-dark p-0 me-0 mb-3 mb-lg-4">
+                    <img src="{{ asset('assets/img/logo.svg') }}" width="47" alt="Silicon">
+                    Silicon
+                </div>
+                <p class="fs-sm text-light opacity-70 pb-lg-3 mb-4">
+                    Demo Symfony blog on the Silicon Bootstrap template.
+                    Hardcoded posts, Twig templates, no database — a learning project.
+                </p>
+            </div>
+
+            {# Колонки ссылок футера: меню сайта + соцсети + контакты #}
+            <div class="col-xl-6 col-lg-7 col-md-5 offset-xl-2 offset-md-1 pt-4 pt-md-1 pt-lg-0">
+                <div id="footer-links" class="row">
+
+                    {# Меню — основные страницы проекта #}
+                    <div class="col-lg-4">
+                        <h6 class="mb-2">Menu</h6>
+                        <ul class="nav flex-column mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a href="{{ path('app_home') }}" class="nav-link d-inline-block px-0 pt-1 pb-2">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('app_about') }}" class="nav-link d-inline-block px-0 pt-1 pb-2">About</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {# Соцсети — статические ссылки-заглушки #}
+                    <div class="col-xl-4 col-lg-3">
+                        <h6 class="mb-2">Socials</h6>
+                        <ul class="nav flex-column mb-2 mb-lg-0">
+                            <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Facebook</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">LinkedIn</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Twitter</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Instagram</a></li>
+                        </ul>
+                    </div>
+
+                    {# Контакты — email проекта #}
+                    <div class="col-xl-4 col-lg-5 pt-2 pt-lg-0">
+                        <h6 class="mb-2">Contact Us</h6>
+                        <a href="mailto:demo@example.com" class="fw-medium">demo@example.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Копирайт #}
+        <p class="nav d-block fs-xs text-center text-md-start pb-5 pb-lg-0 mb-0">
+            <span class="text-light opacity-50">&copy; All rights reserved. Symfony + Silicon demo.</span>
+        </p>
+    </div>
+</footer>
+
+{# Кнопка «Наверх» — фиксированная плавающая кнопка прокрутки к началу страницы #}
+<a href="#top" class="btn-scroll-top mb-4 mb-lg-0" data-scroll>
+    <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span>
+    <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+</a>
+
+{# Основной JS темы Silicon (Bootstrap-бандл + плагины) #}
+<script src="{{ asset('assets/js/theme.min.js') }}"></script>
+</body>
+</html>
