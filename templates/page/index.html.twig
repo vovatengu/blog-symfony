@@ -2,8 +2,7 @@
   ============================================================================
   page/index.html.twig — PageIndex (главная страница блога)
   ============================================================================
-  Минимум содержимого страницы: h1 + текст-рыба + title.
-  Основной контент: список 10 последних записей блога (хардкод из контроллера
+  Основной контент: список постов из БД (PostRepository, см.
   PageController::index()) + сайдбар с поиском, категориями и тегами.
 
   Наследуется от base.html.twig, который даёт шапку + меню + футер.
@@ -43,49 +42,25 @@
     <div class="row">
 
         {# -------------------------------------------------------------------
-           Левая колонка — 10 последних постов из контроллера.
-           Данные передаются в переменной `posts` (см. PageController::index).
-           Каждый пост: title, content, category, badge, image (может быть null), date.
+           Левая колонка — посты из БД.
+           Данные приходят из PostRepository (см. PageController::index).
+           Сущность Post: id, name, body.
            ------------------------------------------------------------------- #}
         <div class="col-xl-9 col-lg-8">
 
             {% for post in posts %}
+                <article class="card me-xl-5 mb-4">
+                    <div class="card-body">
+                        <h3 class="h4">
+                            <a href="#">{{ post.name }}</a>
+                        </h3>
+                        <p class="mb-3">{{ post.body }}</p>
+                    </div>
+                </article>
 
-                {% if post.image %}
-                    {# --- Карточка поста с обложкой (image + текст справа) --- #}
-                    <article class="card border-0 bg-transparent me-xl-5 mb-4">
-                        <div class="row g-0">
-                            <div class="col-sm-5 bg-position-center bg-repeat-0 bg-size-cover rounded-3"
-                                 style="background-image: url({{ asset('assets/img/blog/' ~ post.image) }}); min-height: 15rem;"></div>
-                            <div class="col-sm-7">
-                                <div class="card-body px-0 pt-sm-0 ps-sm-4 pb-0 pb-sm-4">
-                                    <span class="badge fs-sm text-white {{ post.badge }} mb-3">{{ post.category }}</span>
-                                    <h3 class="h4">
-                                        <a href="#">{{ post.title }}</a>
-                                    </h3>
-                                    <p class="mb-3">{{ post.content }}</p>
-                                    <div class="fs-sm text-muted">{{ post.date }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                {% else %}
-                    {# --- Карточка поста без обложки (только текст) --- #}
-                    <article class="card me-xl-5 mb-4">
-                        <div class="card-body">
-                            <span class="badge fs-sm text-white {{ post.badge }} mb-3">{{ post.category }}</span>
-                            <h3 class="h4">
-                                <a href="#">{{ post.title }}</a>
-                            </h3>
-                            <p class="mb-3">{{ post.content }}</p>
-                            <div class="fs-sm text-muted">{{ post.date }}</div>
-                        </div>
-                    </article>
-                {% endif %}
-
-                {# Отступ между карточками #}
                 <div class="pb-2 pb-lg-3"></div>
-
+            {% else %}
+                <p class="text-muted">Постов пока нет.</p>
             {% endfor %}
         </div>
 
