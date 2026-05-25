@@ -30,6 +30,7 @@ class PageController extends AbstractController
         if (!$post) {
             throw $this->createNotFoundException('Post not found');
         }
+
         return $this->render('page/post.html.twig', [
             'post' => $post,
         ]);
