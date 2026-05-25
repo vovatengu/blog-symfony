@@ -1,0 +1,8 @@
+sonata_user:
+    class:
+        user: App\Entity\SonataUserUser
+    resetting:
+        email:
+            address: sonata@localhost
+            sender_name: Sonata Admin
+    # mailer: custom.mailer.service.id
