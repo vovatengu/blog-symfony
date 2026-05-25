@@ -22,4 +22,16 @@ class PageController extends AbstractController
     {
         return $this->render('page/about.html.twig');
     }
+
+    #[Route('/blog/{slug}', name: 'app_post')]
+    public function post(string $slug, PostRepository $postRepository): Response
+    {
+        $post = $postRepository->findOneBy(['slug' => $slug]);
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+        return $this->render('page/post.html.twig', [
+            'post' => $post,
+        ]);
+    }
 }

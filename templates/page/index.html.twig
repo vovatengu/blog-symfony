@@ -12,92 +12,105 @@
 {% extends 'base.html.twig' %}
 
 {# title вкладки браузера #}
-{% block title %}Blog List with Sidebar | Silicon Symfony Demo{% endblock %}
+{% block title %}Blog List with Sidebar | Silicon Symfony Demo
+{% endblock %}
 
 {% block body %}
 
-{# ===== Хлебные крошки (breadcrumb) ===== #}
-<nav class="container mt-lg-4 pt-5" aria-label="breadcrumb">
-    <ol class="breadcrumb mb-0 pt-5">
-        <li class="breadcrumb-item">
-            <a href="{{ path('app_home') }}"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">Blog List with Sidebar</li>
-    </ol>
-</nav>
+	{# ===== Хлебные крошки (breadcrumb) ===== #}
+	<nav class="container mt-lg-4 pt-5" aria-label="breadcrumb">
+		<ol class="breadcrumb mb-0 pt-5">
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_home') }}">
+					<i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Blog List with Sidebar</li>
+		</ol>
+	</nav>
 
-{# ===== Основная секция страницы ===== #}
-<section class="container mt-4 mb-2 mb-md-4 mb-lg-5 pt-lg-2 pb-5">
+	{# ===== Основная секция страницы ===== #}
+	<section
+		class="container mt-4 mb-2 mb-md-4 mb-lg-5 pt-lg-2 pb-5">
 
-    {# --- Минимальное содержимое страницы: h1 + текст-рыба --- #}
-    <div class="mb-4 pb-1 pb-md-3">
-        <h1 class="mb-2">Blog List with Sidebar</h1>
-        <p class="text-muted mb-0">
-            Nunc aliquet scelerisque pellentesque imperdiet tortor elit, dictum.
-            Tristique odio at dignissim viverra aliquet eleifend erat.
-        </p>
-    </div>
+		{# --- Минимальное содержимое страницы: h1 + текст-рыба --- #}
+		<div class="mb-4 pb-1 pb-md-3">
+			<h1 class="mb-2">Blog List with Sidebar</h1>
+			<p class="text-muted mb-0">
+				Nunc aliquet scelerisque pellentesque imperdiet tortor elit, dictum.
+				            Tristique odio at dignissim viverra aliquet eleifend erat.
+			</p>
+		</div>
 
-    {# ===== Список постов + сайдбар (2 колонки) ===== #}
-    <div class="row">
+		{# ===== Список постов + сайдбар (2 колонки) ===== #}
+		<div
+			class="row">
 
-        {# -------------------------------------------------------------------
-           Левая колонка — посты из БД.
-           Данные приходят из PostRepository (см. PageController::index).
-           Сущность Post: id, name, body.
-           ------------------------------------------------------------------- #}
-        <div class="col-xl-9 col-lg-8">
+			{# -------------------------------------------------------------------
+			           Левая колонка — посты из БД.
+			           Данные приходят из PostRepository (см. PageController::index).
+			           Сущность Post: id, name, body.
+			           ------------------------------------------------------------------- #}
+			<div class="col-xl-9 col-lg-8">
 
-            {% for post in posts %}
-                <article class="card me-xl-5 mb-4">
-                    <div class="card-body">
-                        <h3 class="h4">
-                            <a href="#">{{ post.name }}</a>
-                        </h3>
-                        <p class="mb-3">{{ post.body }}</p>
-                    </div>
-                </article>
+				{% for post in posts %}
+					<article class="card me-xl-5 mb-4">
+						<div class="card-body">
+							<h3 class="h4">
+								<a href="{{ path('app_post', {slug: post.slug}) }}">{{ post.name }}</a>
+							</h3>
+							<p class="mb-3">{{ post.body }}</p>
+						</div>
+					</article>
 
-                <div class="pb-2 pb-lg-3"></div>
-            {% else %}
-                <p class="text-muted">Постов пока нет.</p>
-            {% endfor %}
-        </div>
+					<div class="pb-2 pb-lg-3"></div>
+				{% else %}
+					<p class="text-muted">Постов пока нет.</p>
+				{% endfor %}
+			</div>
 
-        {# -------------------------------------------------------------------
-           Правая колонка — сайдбар: поиск, категории, теги.
-           Содержимое статичное (не приходит из контроллера).
-           ------------------------------------------------------------------- #}
-        <aside class="col-xl-3 col-lg-4">
+			{# -------------------------------------------------------------------
+			           Правая колонка — сайдбар: поиск, категории, теги.
+			           Содержимое статичное (не приходит из контроллера).
+			           ------------------------------------------------------------------- #}
+			<aside
+				class="col-xl-3 col-lg-4">
 
-            {# Форма поиска по блогу #}
-            <form class="input-group mb-4">
-                <input type="text" placeholder="Search the blog..." class="form-control rounded pe-5">
-                <i class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 fs-lg zindex-5"></i>
-            </form>
+				{# Форма поиска по блогу #}
+				<form class="input-group mb-4">
+					<input type="text" placeholder="Search the blog..." class="form-control rounded pe-5">
+					<i class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 fs-lg zindex-5"></i>
+				</form>
 
-            {# Список категорий #}
-            <div class="card card-body mb-4">
-                <h3 class="h5">Categories</h3>
-                <ul class="nav flex-column fs-sm">
-                    <li class="nav-item mb-1"><a href="#" class="nav-link py-1 px-0">Digital</a></li>
-                    <li class="nav-item mb-1"><a href="#" class="nav-link py-1 px-0">Business</a></li>
-                    <li class="nav-item mb-1"><a href="#" class="nav-link py-1 px-0">Technology</a></li>
-                    <li class="nav-item mb-1"><a href="#" class="nav-link py-1 px-0">Startups</a></li>
-                </ul>
-            </div>
+				{# Список категорий #}
+				<div class="card card-body mb-4">
+					<h3 class="h5">Categories</h3>
+					<ul class="nav flex-column fs-sm">
+						<li class="nav-item mb-1">
+							<a href="#" class="nav-link py-1 px-0">Digital</a>
+						</li>
+						<li class="nav-item mb-1">
+							<a href="#" class="nav-link py-1 px-0">Business</a>
+						</li>
+						<li class="nav-item mb-1">
+							<a href="#" class="nav-link py-1 px-0">Technology</a>
+						</li>
+						<li class="nav-item mb-1">
+							<a href="#" class="nav-link py-1 px-0">Startups</a>
+						</li>
+					</ul>
+				</div>
 
-            {# Облако тегов #}
-            <div class="card card-body">
-                <h3 class="h5 mb-3">Tags</h3>
-                <a href="#" class="btn btn-outline-secondary btn-sm me-1 mb-1">#symfony</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm me-1 mb-1">#twig</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm me-1 mb-1">#silicon</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm me-1 mb-1">#bootstrap</a>
-            </div>
-        </aside>
+				{# Облако тегов #}
+				<div class="card card-body">
+					<h3 class="h5 mb-3">Tags</h3>
+					<a href="#" class="btn btn-outline-secondary btn-sm me-1 mb-1">#symfony</a>
+					<a href="#" class="btn btn-outline-secondary btn-sm me-1 mb-1">#twig</a>
+					<a href="#" class="btn btn-outline-secondary btn-sm me-1 mb-1">#silicon</a>
+					<a href="#" class="btn btn-outline-secondary btn-sm me-1 mb-1">#bootstrap</a>
+				</div>
+			</aside>
 
-    </div>
-</section>
+		</div>
+	</section>
 
 {% endblock %}

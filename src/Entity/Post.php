@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,6 +21,9 @@ class Post
     #[ORM\Column(type: Types::TEXT)]
     private string $body = '';
 
+    #[ORM\Column(type: 'string', length: 255, nullable: false, unique: true)]
+    private string $slug;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -33,8 +37,15 @@ class Post
     public function setName(string $name): static
     {
         $this->name = $name;
+        $this->slug = $this->makeSlug($name);
 
         return $this;
+    }
+
+    private function makeSlug(string $name): string
+    {
+        $slugger = new AsciiSlugger();
+        return strtolower((string) $slugger->slug($name));
     }
 
     public function getBody(): string
@@ -47,6 +58,11 @@ class Post
         $this->body = $body;
 
         return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 
     public function __toString(): string
