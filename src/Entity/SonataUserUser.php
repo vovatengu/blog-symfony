@@ -7,14 +7,8 @@ use Sonata\UserBundle\Entity\BaseUser;
 
 // or `Sonata\UserBundle\Entity\BaseUser3` as BaseUser if you upgrade to doctrine/orm ^3
 
-enum GenderEnum: string
-{
-    case male = 'male';
-    case female = 'female';
-}
-
 #[ORM\Entity]
-#[ORM\Table(name: 'sonata_user')]
+#[ORM\Table(name: 'app__user')]
 class SonataUserUser extends BaseUser
 {
     #[ORM\Id]
@@ -22,11 +16,11 @@ class SonataUserUser extends BaseUser
     #[ORM\Column(type: 'integer')]
     protected $id;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $full_name = null;
 
-    #[ORM\Column(enumType: GenderEnum::class)]
-    private ?GenderEnum $gender = null;
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private ?string $gender = null;
 
     public function getFullName(): ?string
     {
@@ -40,12 +34,12 @@ class SonataUserUser extends BaseUser
         return $this;
     }
 
-    public function getGender(): ?GenderEnum
+    public function getGender(): ?string
     {
         return $this->gender;
     }
 
-    public function setGender(?GenderEnum $gender): static
+    public function setGender(?string $gender): static
     {
         $this->gender = $gender;
 
