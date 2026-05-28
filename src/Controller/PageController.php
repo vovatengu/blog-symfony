@@ -13,7 +13,7 @@ class PageController extends AbstractController
     public function index(PostRepository $postRepository): Response
     {
         return $this->render('page/index.html.twig', [
-            'posts' => $postRepository->findBy([], ['id' => 'DESC']),
+            'posts' => $postRepository->findAllWithAuthors(),
         ]);
     }
 

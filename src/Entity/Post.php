@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use Symfony\Component\String\Slugger\AsciiSlugger;
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -23,6 +23,9 @@ class Post
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, unique: true)]
     private string $slug;
+
+    #[ORM\ManyToOne(targetEntity: SonataUserUser::class, inversedBy: 'posts')]
+    private ?SonataUserUser $author = null;
 
     public function getId(): ?int
     {
@@ -45,6 +48,7 @@ class Post
     private function makeSlug(string $name): string
     {
         $slugger = new AsciiSlugger();
+
         return strtolower((string) $slugger->slug($name));
     }
 
@@ -63,6 +67,18 @@ class Post
     public function getSlug(): string
     {
         return $this->slug;
+    }
+
+    public function getAuthor(): ?SonataUserUser
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?SonataUserUser $author): static
+    {
+        $this->author = $author;
+
+        return $this;
     }
 
     public function __toString(): string

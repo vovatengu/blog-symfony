@@ -65,6 +65,9 @@
                             <li class="nav-item">
                                 <span class="nav-link text-reset" style="color: inherit;">Hello, {{ app.user.username }}!</span>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ path('app_post_new') }}" class="nav-link">New Post</a>
+                            </li>
                         {% else %}
                             <li class="nav-item">
                                 <a href="{{ path('app_login') }}" class="nav-link">Login</a>

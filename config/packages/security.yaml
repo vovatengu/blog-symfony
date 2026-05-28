@@ -90,4 +90,6 @@ security:
         # - { path: ^/login$, role: PUBLIC_ACCESS }
         # - { path: ^/logout$, role: PUBLIC_ACCESS }
 
+        - { path: ^post/new, role: ROLE_USER }
+        - { path: ^post/\d+/edit, role: ROLE_USER }
         - { path: ^/.*, role: PUBLIC_ACCESS }

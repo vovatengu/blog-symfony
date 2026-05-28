@@ -40,4 +40,19 @@ class PostRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findAllWithAuthors(?int $idAuthor = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->leftJoin('p.author', 'a')
+            ->addSelect('a')
+            ->orderBy('p.id', 'DESC');
+
+        if ($idAuthor) {
+            $queryBuilder->andWhere('a.id = :idAuthor')
+                ->setParameter('idAuthor', $idAuthor);
+        }
+
+        return $queryBuilder->getQuery()->getArrayResult();
+    }
 }

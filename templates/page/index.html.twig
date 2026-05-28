@@ -59,6 +59,12 @@
 								<a href="{{ path('app_post', {slug: post.slug}) }}">{{ post.name }}</a>
 							</h3>
 							<p class="mb-3">{{ post.body }}</p>
+							{% if post.author is defined and post.author.username is defined %}
+								<p class="mb-3">{{ post.author.username }}</p>
+							{% else %}
+								<p class="mb-3">Unknown Author</p>
+                            {% endif %}
+							</p>
 						</div>
 					</article>
 
