@@ -24,4 +24,10 @@
             </div>
         </div>
     </section>
+{% set messages = app.session.flashbag.get('success') %}
+    {% if messages is not empty %}
+        <div class="flash-notice">
+            {{ messages|last }}
+        </div>
+    {% endif %}
 {% endblock %}

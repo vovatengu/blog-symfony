@@ -30,6 +30,8 @@ class PostContoller extends AbstractController
             $em->persist($post);
             $em->flush();
 
+            $this->addFlash('success', 'save post');
+
             return $this->redirectToRoute('app_post', ['slug' => $post->getSlug()]);
         }
 
@@ -68,5 +70,31 @@ class PostContoller extends AbstractController
             'form' => $form->createView(),
             'post' => $post,
         ]);
+    }
+
+    #[Route('/post/{id}/delete', name: 'app_post_delete', requirements: ['id' => '\d+'])]
+    public function delete(int $id, Request $request, EntityManagerInterface $em, PostRepository $postRepository): Response
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException('You must be logged in to create a post');
+        }
+        $post = $postRepository->find($id);
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        if ($post->getAuthor() !== $user) {
+            throw $this->createAccessDeniedException('You are not the author of this post');
+        }
+
+        if (!$this->isCsrfTokenValid('delete-post'.$post->getId(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+
+        $em->remove($post);
+        $em->flush();
+
+        return $this->redirectToRoute('app_user_index');
     }
 }

@@ -20,7 +20,7 @@ class UserController extends AbstractController
 
         $posts = $postRepository->findAllWithAuthors((int) $user->getId());
 
-        return $this->render('page/index.html.twig', [
+        return $this->render('user/index.html.twig', [
             'posts' => $posts,
         ]);
     }
