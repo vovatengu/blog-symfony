@@ -20,7 +20,7 @@ class PageController extends AbstractController
         $cookieCounter = (int) $request->cookies->get('cookie_counter', 0) + 1;
 
         $response = $this->render('page/index.html.twig', [
-            'posts' => $postRepository->findAllWithAuthors(),
+            'posts' => $postRepository->findAll(),
         ]);
 
         $response->headers->setCookie(

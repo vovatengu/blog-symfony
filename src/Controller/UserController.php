@@ -14,11 +14,8 @@ class UserController extends AbstractController
     {
         /** @var \App\Entity\SonataUserUser $user */
         $user = $this->getUser();
-        if (!$user) {
-            throw $this->createAccessDeniedException('You must be logged in to create a post');
-        }
 
-        $posts = $postRepository->findAllWithAuthors((int) $user->getId());
+        $posts = $postRepository->findByAuthor($user);
 
         return $this->render('user/index.html.twig', [
             'posts' => $posts,

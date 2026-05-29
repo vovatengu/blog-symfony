@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Entity\SonataUserUser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -41,17 +42,12 @@ class PostRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findAllWithAuthors(?int $idAuthor = null): array
+    public function findByAuthor(SonataUserUser $author): array
     {
         $queryBuilder = $this->createQueryBuilder('p')
-            ->leftJoin('p.author', 'a')
-            ->addSelect('a')
+            ->andWhere('p.author = :author')
+            ->setParameter('author', $author)
             ->orderBy('p.id', 'DESC');
-
-        if ($idAuthor) {
-            $queryBuilder->andWhere('a.id = :idAuthor')
-                ->setParameter('idAuthor', $idAuthor);
-        }
 
         return $queryBuilder->getQuery()->getArrayResult();
     }
