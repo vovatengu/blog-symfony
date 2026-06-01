@@ -63,7 +63,7 @@
 							<h3 class="h4">
 								<a href="{{ path('app_post', {slug: post.slug}) }}">{{ post.name }}</a>
 							</h3>
-							<p class="mb-3">{{ post.body }}</p>
+							<p class="mb-3">{{ post.body | raw }}</p>
                             {# вывод своих постов и имя автора#}
 							{% if post.author is defined and post.author.username is defined %}
 								<p class="mb-3">{{ post.author.username }}</p>
