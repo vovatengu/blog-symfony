@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class PostAdmin extends AbstractAdmin
@@ -49,9 +49,10 @@ final class PostAdmin extends AbstractAdmin
             ->tab('Post')
                 ->with('Content', ['class' => 'col-md-12'])
                     ->add('name', TextType::class, ['label' => 'Title'])
-                    ->add('body', TextareaType::class, [
-                        'label' => 'Body',
-                        'attr'  => ['rows' => 10],
+                    ->add('body', CKEditorType::class, [
+                        'label'       => 'Body',
+                        'config_name' => 'description',
+                        'required'    => false,
                     ])
                 ->end()
             ->end()

@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^2.18.2",
         "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/orm": "^3.6.7",
+        "friendsofsymfony/ckeditor-bundle": "^2.8",
         "sonata-project/admin-bundle": "^4.42",
         "sonata-project/doctrine-orm-admin-bundle": "^4.21",
         "sonata-project/user-bundle": "^5.19",
@@ -61,7 +62,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "ckeditor:install --tag=4.22.1": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
