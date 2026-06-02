@@ -1,0 +1,6 @@
+{% set messages = app.session.flashbag.get(type|default('success')) %}
+{% if messages is not empty %}
+    <div class="flash-notice">
+        {{ messages|last }}
+    </div>
+{% endif %}

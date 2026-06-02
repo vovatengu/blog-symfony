@@ -1,0 +1,7 @@
+{# Заголовок страницы: h1 + необязательный подзаголовок #}
+<div class="mb-4 pb-1 pb-md-3">
+    <h1 class="mb-2">{{ title }}</h1>
+    {% if subtitle is defined and subtitle %}
+        <p class="text-muted mb-0">{{ subtitle }}</p>
+    {% endif %}
+</div>

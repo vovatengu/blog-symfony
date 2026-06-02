@@ -5,9 +5,5 @@
 {% block body %}
     <h1>Create New Post</h1>
 
-    {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.body) }}
-        <button class="submit">Create</button>
-    {{ form_end(form) }}
+    {% include 'layout/post_form.html.twig' with { form: form, submit_label: 'Create' } %}
 {% endblock %}

@@ -1,65 +1,44 @@
 {#
-  ============================================================================
-  page/about.html.twig — PageAbout (страница «О проекте»)
-  ============================================================================
-  Минимальное содержимое страницы: h1 + текст-рыба + title.
-  Никаких данных из контроллера — статический текст о проекте.
-
-  Наследуется от base.html.twig (общий header + меню + footer).
-  ============================================================================
+  page/about.html.twig — статическая страница «О проекте».
+  Наследует base.html.twig (header + footer).
 #}
 {% extends 'base.html.twig' %}
 
-{# title вкладки браузера #}
 {% block title %}About | Silicon Symfony Demo{% endblock %}
 
 {% block body %}
 
-{# ===== Хлебные крошки ===== #}
-<nav class="container mt-lg-4 pt-5" aria-label="breadcrumb">
-    <ol class="breadcrumb mb-0 pt-5">
-        <li class="breadcrumb-item">
-            <a href="{{ path('app_home') }}"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">About</li>
-    </ol>
-</nav>
+    {% include 'layout/breadcrumb.html.twig' with { current: 'About' } %}
 
-{# ===== Контент страницы: h1 + текст-рыба ===== #}
-<section class="container mt-4 pt-lg-2 pb-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
+    <section class="container mt-4 pt-lg-2 pb-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
 
-            {# h1 страницы #}
-            <h1 class="mb-4">About</h1>
+                <h1 class="mb-4">About</h1>
 
-            {# Лид — короткий вводный абзац #}
-            <p class="lead text-muted mb-4">
-                Symfony + Silicon — учебная демо-страница без базы данных.
-            </p>
+                <p class="lead text-muted mb-4">
+                    Symfony + Silicon — учебная демо-страница без базы данных.
+                </p>
 
-            {# Текст-рыба (lorem ipsum) #}
-            <p class="mb-4">
-                Nunc aliquet scelerisque pellentesque imperdiet tortor elit, dictum.
-                Tristique odio at dignissim viverra aliquet eleifend erat. Tellus, at arcu,
-                egestas praesent. Varius aliquet pharetra adipiscing tincidunt orci nec neque.
-            </p>
+                <p class="mb-4">
+                    Nunc aliquet scelerisque pellentesque imperdiet tortor elit, dictum.
+                    Tristique odio at dignissim viverra aliquet eleifend erat. Tellus, at arcu,
+                    egestas praesent. Varius aliquet pharetra adipiscing tincidunt orci nec neque.
+                </p>
 
-            {# Краткое описание проекта #}
-            <p class="text-muted mb-4">
-                Проект использует Twig-шаблоны, маршруты Symfony и захардкоженный массив
-                постов в контроллере. За основу базового шаблона base.html.twig взята
-                страница Silicon blog-list-with-sidebar.html.
-            </p>
+                <p class="text-muted mb-4">
+                    Проект использует Twig-шаблоны, маршруты Symfony и захардкоженный массив
+                    постов в контроллере. За основу базового шаблона base.html.twig взята
+                    страница Silicon blog-list-with-sidebar.html.
+                </p>
 
-            {# Кнопка возврата к списку блога #}
-            <a href="{{ path('app_home') }}" class="btn btn-primary rounded-pill">
-                <i class="bx bx-left-arrow-alt fs-5 lh-1 me-1"></i>
-                Back to blog
-            </a>
+                <a href="{{ path('app_home') }}" class="btn btn-primary rounded-pill">
+                    <i class="bx bx-left-arrow-alt fs-5 lh-1 me-1"></i>
+                    Back to blog
+                </a>
 
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 {% endblock %}

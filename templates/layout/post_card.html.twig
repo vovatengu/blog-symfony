@@ -1,0 +1,30 @@
+{# Карточка поста в списке блога. editable=true — кнопки удаления и редактирования #}
+<article class="card me-xl-5 mb-4">
+    <div class="card-body{% if editable|default(false) %} position-relative{% endif %}">
+        {% if editable|default(false) %}
+            <form action="{{ path('app_post_delete', {id: post.id}) }}" method="post" class="position-absolute top-0 end-0">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-post' ~ post.id) }}">
+                <button type="submit" class="btn btn-link p-0 text-decoration-none text-danger" aria-label="Delete post">&times;</button>
+            </form>
+        {% endif %}
+
+        <h3 class="h4">
+            <a href="{{ path('app_post', {slug: post.slug}) }}">{{ post.name }}</a>
+        </h3>
+        <p class="mb-3">{{ post.body | raw }}</p>
+
+        {% if post.author is defined and post.author.username is defined %}
+            <p class="mb-3">{{ post.author.username }}</p>
+        {% else %}
+            <p class="mb-3">Unknown Author</p>
+        {% endif %}
+
+        {% if editable|default(false) %}
+            <a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn btn-primary">
+                <i class="bi bi-pencil-square me-1"></i> Edit post
+            </a>
+        {% endif %}
+    </div>
+</article>
+
+<div class="pb-2 pb-lg-3"></div>

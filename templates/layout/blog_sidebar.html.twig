@@ -1,0 +1,15 @@
+{# Сайдбар блога: счётчики (опционально), поиск, категории, теги #}
+<aside class="col-xl-3 col-lg-4">
+    {% if show_counters|default(false) %}
+        {{ render(controller('App\\Controller\\CounterController::showCounters')) }}
+    {% endif %}
+
+    <form class="input-group mb-4">
+        <input type="text" placeholder="Search the blog..." class="form-control rounded pe-5">
+        <i class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 fs-lg zindex-5"></i>
+    </form>
+
+    <twig:CategoryList />
+
+    {% include 'layout/tags_cloud.html.twig' %}
+</aside>

@@ -1,22 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{# title вкладки браузера #}
 {% block title %}{{ post.name }}{% endblock %}
 
 {% block body %}
 
-    <nav class="container mt-lg-4 pt-5" aria-label="breadcrumb">
-        <ol class="breadcrumb mb-0 pt-5">
-            <li class="breadcrumb-item">
-                <a href="{{ path('app_home') }}"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">{{ post.name }}</li>
-        </ol>
-    </nav>
+    {% include 'layout/breadcrumb.html.twig' with { current: post.name } %}
 
     <section class="container mt-4 pt-lg-2 pb-3">
         <h1 class="pb-3" style="max-width: 970px;">{{ post.name }}</h1>
     </section>
+
     <section class="container mb-5 pt-4 pb-2 py-mg-4">
         <div class="row gy-4">
             <div class="col-lg-9">
@@ -24,10 +17,7 @@
             </div>
         </div>
     </section>
-{% set messages = app.session.flashbag.get('success') %}
-    {% if messages is not empty %}
-        <div class="flash-notice">
-            {{ messages|last }}
-        </div>
-    {% endif %}
+
+    {% include 'layout/flash_messages.html.twig' %}
+
 {% endblock %}
