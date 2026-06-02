@@ -8,6 +8,7 @@ framework:
     #esi: true
     #fragments: true
     csrf_protection: ~
+    # fragments: { path: /_fragment }
 
 when@test:
     framework:
@@ -15,3 +16,4 @@ when@test:
         session:
             storage_factory_id: session.storage.factory.mock_file
         csrf_protection: ~
+        # fragments: { path: /_fragment }

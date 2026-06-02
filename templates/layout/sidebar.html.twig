@@ -1,0 +1,8 @@
+<ul class="nav flex-column fs-sm">
+    <li class="nav-item">
+        <span class="nav-link text-reset" style="color: inherit;">Session Counter: {{ app.session.get('session_counter', 0) }}</span>
+    </li>
+    <li class="nav-item">
+        <span class="nav-link text-reset" style="color: inherit;">Cookie Counter: {{ app.request.cookies.get('cookie_counter', 0)}}</span>
+    </li>
+</ul>

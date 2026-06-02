@@ -2,12 +2,12 @@
 
 namespace App\Admin;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class PostAdmin extends AbstractAdmin
@@ -18,6 +18,7 @@ final class PostAdmin extends AbstractAdmin
             ->add('id')
             ->add('name')
             ->add('body')
+            ->add('category')
         ;
     }
 
@@ -26,17 +27,17 @@ final class PostAdmin extends AbstractAdmin
         $list
             ->addIdentifier('name', null, ['label' => 'Title'])
             ->add('body', null, [
-                'label'    => 'Body',
+                'label' => 'Body',
                 'template' => '@SonataAdmin/CRUD/list_html.html.twig',
                 'truncate' => ['length' => 100],
-                'strip'    => true,
+                'strip' => true,
             ])
             ->add('id', null, ['label' => 'ID'])
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'translation_domain' => 'SonataAdminBundle',
-                'actions'            => [
-                    'show'   => [],
-                    'edit'   => [],
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
                     'delete' => [],
                 ],
             ])
@@ -50,9 +51,12 @@ final class PostAdmin extends AbstractAdmin
                 ->with('Content', ['class' => 'col-md-12'])
                     ->add('name', TextType::class, ['label' => 'Title'])
                     ->add('body', CKEditorType::class, [
-                        'label'       => 'Body',
+                        'label' => 'Body',
                         'config_name' => 'description',
-                        'required'    => false,
+                        'required' => false,
+                    ])
+                    ->add('category', null, [
+                        'label' => 'Category',
                     ])
                 ->end()
             ->end()
@@ -65,6 +69,7 @@ final class PostAdmin extends AbstractAdmin
             ->add('id', null, ['label' => 'ID'])
             ->add('name', null, ['label' => 'Title'])
             ->add('body', null, ['label' => 'Body'])
+            ->add('category', null, ['label' => 'Category'])
         ;
     }
 }

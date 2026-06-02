@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 // use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,9 +22,15 @@ class PostType extends AbstractType
                 'label' => 'Title',
             ])
             ->add('body', CKEditorType::class, [
-                'label'       => 'Description',
+                'label' => 'Description',
                 'config_name' => 'description',
-                'required'    => false,
+                'required' => false,
+            ])
+            ->add('category', EntityType::class, [
+                'label' => 'Category',
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Select a category',
             ]);
     }
 

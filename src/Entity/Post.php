@@ -27,6 +27,22 @@ class Post
     #[ORM\ManyToOne(targetEntity: SonataUserUser::class, inversedBy: 'posts')]
     private ?SonataUserUser $author = null;
 
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
+    private ?Category $category = null;
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

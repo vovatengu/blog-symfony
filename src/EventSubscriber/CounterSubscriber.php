@@ -21,7 +21,7 @@ class CounterSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$this->shouldCount($event->getRequest())) {
+        if (!$event->isMainRequest() || !$this->shouldCount($event->getRequest())) {
             return;
         }
 
@@ -31,7 +31,7 @@ class CounterSubscriber implements EventSubscriberInterface
 
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if (!$this->shouldCount($event->getRequest())) {
+        if (!$event->isMainRequest() || !$this->shouldCount($event->getRequest())) {
             return;
         }
 

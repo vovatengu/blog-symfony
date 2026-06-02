@@ -81,6 +81,9 @@
 			<aside
 				class="col-xl-3 col-lg-4">
 
+				{# Счетчики #}
+                {{ render(controller('App\\Controller\\CounterController::showCounters' )) }}
+
 				{# Форма поиска по блогу #}
 				<form class="input-group mb-4">
 					<input type="text" placeholder="Search the blog..." class="form-control rounded pe-5">
@@ -88,23 +91,7 @@
 				</form>
 
 				{# Список категорий #}
-				<div class="card card-body mb-4">
-					<h3 class="h5">Categories</h3>
-					<ul class="nav flex-column fs-sm">
-						<li class="nav-item mb-1">
-							<a href="#" class="nav-link py-1 px-0">Digital</a>
-						</li>
-						<li class="nav-item mb-1">
-							<a href="#" class="nav-link py-1 px-0">Business</a>
-						</li>
-						<li class="nav-item mb-1">
-							<a href="#" class="nav-link py-1 px-0">Technology</a>
-						</li>
-						<li class="nav-item mb-1">
-							<a href="#" class="nav-link py-1 px-0">Startups</a>
-						</li>
-					</ul>
-				</div>
+                <twig:CategoryList />
 
 				{# Облако тегов #}
 				<div class="card card-body">
