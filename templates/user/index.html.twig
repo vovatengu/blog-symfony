@@ -23,7 +23,7 @@
                 {% endfor %}
             </div>
 
-            {% include 'layout/blog_sidebar.html.twig' %}
+            {% include 'layout/blog_sidebar.html.twig' with { show_counters: true } %}
         </div>
     </section>
 
