@@ -42,6 +42,30 @@ class PostRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+    public function findaAllActivePosts(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->andWhere('p.isActive = :active')
+            ->setParameter('active', true)
+            ->orderBy('p.createdAt', 'DESC');
+
+        return $queryBuilder->getQuery()->getArrayResult();
+    }
+
+    public function deactivateOlderPosts(\DateTimeInterface $date): int
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->update()
+            ->set('p.isActive', ':inactive')
+            ->andWhere('p.createdAt < :date')
+            ->andWhere('p.isActive = :active')
+            ->setParameter('inactive', false)
+            ->setParameter('date', $date)
+            ->setParameter('active', true);
+
+        return $queryBuilder->getQuery()->execute();
+    }
+
     public function findByAuthor(SonataUserUser $author): array
     {
         $queryBuilder = $this->createQueryBuilder('p')

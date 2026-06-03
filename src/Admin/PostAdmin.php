@@ -19,6 +19,7 @@ final class PostAdmin extends AbstractAdmin
             ->add('name')
             ->add('body')
             ->add('category')
+            ->add('isActive')
         ;
     }
 
@@ -26,6 +27,7 @@ final class PostAdmin extends AbstractAdmin
     {
         $list
             ->addIdentifier('name', null, ['label' => 'Title'])
+            ->add('isActive', null, ['label' => 'Active'])
             ->add('body', null, [
                 'label' => 'Body',
                 'template' => '@SonataAdmin/CRUD/list_html.html.twig',
@@ -57,6 +59,10 @@ final class PostAdmin extends AbstractAdmin
                     ])
                     ->add('category', null, [
                         'label' => 'Category',
+                    ])
+                    ->add('isActive', null, [
+                        'label' => 'Active',
+                        'required' => false,
                     ])
                 ->end()
             ->end()
