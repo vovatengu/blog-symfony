@@ -95,7 +95,7 @@ init:
 			-out config/ssl/localhost.crt \
 			-days 3650 \
 			-subj "/CN=sftest2.my/O=Local Dev" \
-			-addext "subjectAltName=DNS:sftest2.my,DNS:pma.sftest2.my,DNS:localhost" 2>/dev/null; \
+			-addext "subjectAltName=DNS:*.sftest2.my,DNS:sftest2.my,DNS:pma.sftest2.my,DNS:localhost" 2>/dev/null; \
 		echo "    Done"; \
 	else \
 		echo "    config/ssl/localhost.crt OK (valid), skipping"; \
@@ -138,8 +138,9 @@ init:
 	fi
 
 	@echo "==> [7/10] Updating /etc/hosts..."
-	@grep -q "sftest2.my" /etc/hosts || { echo "127.0.0.1 sftest2.my pma.sftest2.my" | sudo tee -a /etc/hosts > /dev/null; echo "    added sftest2.my pma.sftest2.my"; }
+	@grep -q "sftest2.my" /etc/hosts || { echo "127.0.0.1 sftest2.my pma.sftest2.my nsk.sftest2.my" | sudo tee -a /etc/hosts > /dev/null; echo "    added sftest2.my pma.sftest2.my nsk.sftest2.my"; }
 	@grep -q "pma.sftest2.my" /etc/hosts || { echo "127.0.0.1 pma.sftest2.my" | sudo tee -a /etc/hosts > /dev/null; echo "    added pma.sftest2.my"; }
+	@grep -q "nsk.sftest2.my" /etc/hosts || { echo "127.0.0.1 nsk.sftest2.my" | sudo tee -a /etc/hosts > /dev/null; echo "    added nsk.sftest2.my"; }
 	@echo "    /etc/hosts OK"
 
 	@echo "==> [8/10] Building and starting containers..."
@@ -167,6 +168,7 @@ init:
 	@echo ""
 	@echo "  URLs:"
 	@echo "    https://sftest2.my        — application"
+	@echo "    https://nsk.sftest2.my    — Новосибирск"
 	@echo "    https://pma.sftest2.my    — phpMyAdmin"
 	@echo ""
 	@echo "  Database credentials:"

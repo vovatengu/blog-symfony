@@ -14,16 +14,18 @@ services:
         aliases:
           - sftest2.my
           - pma.sftest2.my
+          - nsk.sftest2.my
       proxy:
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sftest2.rule=Host(`sftest2.my`)"
+      - "traefik.http.routers.sftest2.rule=Host(`sftest2.my`) || HostRegexp(`^[a-z0-9-]+\\.sftest2\\.my$`)"
       - "traefik.http.routers.sftest2.entrypoints=websecure"
       - "traefik.http.routers.sftest2.tls=true"
       - "traefik.http.routers.sftest2.service=sftest2"
       - "traefik.http.services.sftest2.loadbalancer.server.scheme=https"
       - "traefik.http.services.sftest2.loadbalancer.server.port=443"
       - "traefik.http.routers.pma.rule=Host(`pma.sftest2.my`)"
+      - "traefik.http.routers.pma.priority=100"
       - "traefik.http.routers.pma.entrypoints=websecure"
       - "traefik.http.routers.pma.tls=true"
       - "traefik.http.routers.pma.service=pma-svc"
