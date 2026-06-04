@@ -92,4 +92,5 @@ security:
         - { path: ^/user, role: ROLE_USER }
         - { path: ^/post/new$, role: ROLE_USER }
         - { path: ^/post/\d+/edit$, role: ROLE_USER }
+        - { path: ^/post/\d+$/transliterate, role: PUBLIC_ACCESS}
         - { path: ^/.*, role: PUBLIC_ACCESS }

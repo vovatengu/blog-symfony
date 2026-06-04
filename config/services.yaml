@@ -1,3 +1,7 @@
+parameters:
+    app.transliterate.log_name: '%env(TRANSLITERATE_LOG_NAME)%'
+    app.transliterate.log_file: '%env(TRANSLITERATE_LOG_FILE)%'
+
 services:
     _defaults:
         autowire: true
@@ -5,6 +9,11 @@ services:
 
     App\:
         resource: '../src/'
+
+    App\Service\TransliterateService:
+        arguments:
+            $logName: '%app.transliterate.log_name%'
+            $logger: '@monolog.logger.transliterate'
 
     admin.post:
         class: App\Admin\PostAdmin

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Service\TransliterateService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,5 +70,28 @@ class PostController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_user_index');
+    }
+
+    #[Route('post/{id}/transliterate', name: 'app_post_transliterate', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function transliterate(int $id, PostRepository $postRepository, EntityManagerInterface $em, TransliterateService $transliterateService): Response
+    {
+        $post = $postRepository->find($id);
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        $originalName = $post->getName();
+        $transliteratedName = $transliterateService->transliterate($originalName);
+        $originalBody = $post->getBody();
+        $transliteratedBody = $transliterateService->transliterate($originalBody);
+
+        $postNew = new Post();
+        $postNew->setName($transliteratedName);
+        $postNew->setBody($transliteratedBody);
+        $postNew->setAuthor($post->getAuthor());
+        $em->persist($postNew);
+        $em->flush();
+
+        return $this->redirectToRoute('app_post', ['slug' => $postNew->getSlug()]);
     }
 }

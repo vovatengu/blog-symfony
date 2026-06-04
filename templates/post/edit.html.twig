@@ -6,4 +6,8 @@
     <h1>Edit Post</h1>
 
     {% include 'layout/post_form.html.twig' with { form: form, submit_label: 'Update' } %}
+    <form method="post" action="{{ path('app_post_transliterate', {'id': post.id}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('transliterate' ~ post.id) }}">
+        <button type="submit" class="btn btn-secondary">Transliterate</button>
+    </form>
 {% endblock %}
