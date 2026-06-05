@@ -2,7 +2,7 @@
 <article class="card me-xl-5 mb-4">
     <div class="card-body{% if editable|default(false) %} position-relative{% endif %}">
         {% if post.cover%}
-            <img src="{{ sonata_path(post.cover, 'small') }}" alt="{{ post.name }}" class="img-fluid mb-3">
+            <img src="{{ sonata_path(post.cover, 'reference') }}" alt="{{ post.name }}" class="img-fluid mb-3">
         {% endif %}
         {% if editable|default(false) %}
             <form action="{{ path('app_post_delete', {id: post.id}) }}" method="post" class="position-absolute top-0 end-0">
