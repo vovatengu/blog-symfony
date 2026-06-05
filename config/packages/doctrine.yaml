@@ -25,6 +25,7 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
             SonataUserBundle: ~
+            SonataMediaBundle: ~
         controller_resolver:
             auto_mapping: false
 

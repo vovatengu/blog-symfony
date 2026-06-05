@@ -69,11 +69,13 @@ class PostRepository extends ServiceEntityRepository
     public function findByAuthor(SonataUserUser $author): array
     {
         $queryBuilder = $this->createQueryBuilder('p')
+            ->leftJoin('p.cover', 'c') // Присоединяем связанную сущность
+            ->addSelect('c')           // И сразу добавляем её в SELECT, чтобы не было доп. запросов(n+1)
             ->andWhere('p.author = :author')
             ->setParameter('author', $author)
             ->orderBy('p.id', 'DESC');
 
-        return $queryBuilder->getQuery()->getArrayResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function resolveUniqueSlug(string $slug): string

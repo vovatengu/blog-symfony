@@ -39,6 +39,22 @@ class Post
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $createdAt;
 
+    #[ORM\ManyToOne(targetEntity: SonataMediaMedia::class, cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'cover_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?SonataMediaMedia $cover = null;
+
+    public function getCover(): ?SonataMediaMedia
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?SonataMediaMedia $cover): static
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
     public function getIsActive(): bool
     {
         return $this->isActive;

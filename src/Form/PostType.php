@@ -5,8 +5,9 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Post;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sonata\MediaBundle\Form\Type\MediaType;
 // use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +32,15 @@ class PostType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Select a category',
-            ]);
+            ])
+            // стала показываться флаг remove
+            ->add('cover', MediaType::class, [
+                'label' => 'Cover Image',
+                'provider' => 'sonata.media.provider.image',
+                'context' => 'default',
+                'required' => false,
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

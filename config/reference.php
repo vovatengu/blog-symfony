@@ -472,7 +472,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     },
  *     disallow_search_engine_index?: bool|Param, // Enabled by default when debug is enabled. // Default: true
  *     http_client?: bool|array{ // HTTP Client configuration
- *         enabled?: bool|Param, // Default: false
+ *         enabled?: bool|Param, // Default: true
  *         max_host_connections?: int|Param, // The maximum number of connections to a single host.
  *         default_options?: array{
  *             headers?: array<string, mixed>,
@@ -1916,6 +1916,172 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     skip_translation_on_load?: bool|Param, // Default: false
  *     metadata_cache_pool?: scalar|Param|null, // Default: null
  * }
+ * @psalm-type SonataMediaConfig = array{
+ *     db_driver?: scalar|Param|null, // Choose persistence mechanism driver from the following list: "doctrine_orm", "doctrine_mongodb" // Default: "no_driver"
+ *     default_context?: scalar|Param|null,
+ *     force_disable_category?: bool|Param, // true IF you really want to disable the relation with category // Default: false
+ *     admin_format?: array{ // Configures the thumbnail preview for the admin
+ *         width?: scalar|Param|null, // Default: 200
+ *         height?: scalar|Param|null, // Default: null
+ *         quality?: scalar|Param|null, // Default: 90
+ *         format?: scalar|Param|null, // Default: "jpg"
+ *         constraint?: scalar|Param|null, // Default: true
+ *         resizer?: scalar|Param|null, // Default: null
+ *         resizer_options?: array<string, scalar|Param|null>,
+ *     },
+ *     contexts?: array<string, array{ // Default: []
+ *         download?: array{
+ *             strategy?: scalar|Param|null, // Default: "sonata.media.security.superadmin_strategy"
+ *             mode?: scalar|Param|null, // Default: "http"
+ *         },
+ *         providers?: list<scalar|Param|null>,
+ *         formats?: array<string, array{ // Default: []
+ *             width?: int|Param, // Default: null
+ *             height?: int|Param, // Default: null
+ *             quality?: int|Param, // Default: 80
+ *             format?: scalar|Param|null, // Default: "jpg"
+ *             constraint?: bool|Param, // Default: true
+ *             resizer?: scalar|Param|null, // Default: null
+ *             resizer_options?: array<string, scalar|Param|null>,
+ *         }>,
+ *     }>,
+ *     cdn?: array{
+ *         server?: array{
+ *             path?: scalar|Param|null, // Default: "/uploads/media"
+ *         },
+ *         cloudfront?: array{
+ *             path?: scalar|Param|null, // e.g. http://xxxxxxxxxxxxxx.cloudfront.net/uploads/media
+ *             distribution_id?: scalar|Param|null,
+ *             key?: scalar|Param|null,
+ *             secret?: scalar|Param|null,
+ *             region?: scalar|Param|null,
+ *             version?: scalar|Param|null,
+ *         },
+ *         fallback?: array{
+ *             primary?: scalar|Param|null,
+ *             fallback?: scalar|Param|null,
+ *         },
+ *     },
+ *     filesystem?: array{
+ *         local?: array{
+ *             directory?: scalar|Param|null, // Default: "%kernel.project_dir%/web/uploads/media"
+ *             create?: scalar|Param|null, // Default: false
+ *         },
+ *         ftp?: array{
+ *             directory?: scalar|Param|null,
+ *             host?: scalar|Param|null,
+ *             username?: scalar|Param|null,
+ *             password?: scalar|Param|null,
+ *             port?: scalar|Param|null, // Default: 21
+ *             passive?: scalar|Param|null, // Default: false
+ *             create?: scalar|Param|null, // Default: false
+ *             mode?: scalar|Param|null, // Default: 2
+ *         },
+ *         s3?: array{
+ *             directory?: scalar|Param|null, // Default: ""
+ *             bucket?: scalar|Param|null,
+ *             accessKey?: scalar|Param|null,
+ *             secretKey?: scalar|Param|null,
+ *             create?: scalar|Param|null, // Default: false
+ *             storage?: scalar|Param|null, // Default: "standard"
+ *             cache_control?: scalar|Param|null, // Default: ""
+ *             acl?: scalar|Param|null, // Default: "public"
+ *             encryption?: scalar|Param|null, // Default: ""
+ *             region?: scalar|Param|null, // Default: "s3.amazonaws.com"
+ *             endpoint?: scalar|Param|null, // Default: null
+ *             version?: scalar|Param|null, // Using "latest" in a production application is not recommended because pulling in a new minor version of the SDK that includes an API update could break your production application. See https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_configuration.html#cfg-version. // Default: "latest"
+ *             meta?: array<string, scalar|Param|null>,
+ *             async?: bool|Param, // Default: false
+ *         },
+ *         azure?: array{
+ *             container_name?: scalar|Param|null,
+ *             connection_string?: scalar|Param|null,
+ *             create_container?: scalar|Param|null, // Default: false
+ *             cache_control?: scalar|Param|null, // Default: ""
+ *             meta?: array<string, scalar|Param|null>,
+ *         },
+ *         replicate?: array{
+ *             primary?: scalar|Param|null,
+ *             secondary?: scalar|Param|null,
+ *         },
+ *     },
+ *     providers?: array{
+ *         file?: array{
+ *             service?: scalar|Param|null, // Default: "sonata.media.provider.file"
+ *             resizer?: scalar|Param|null, // Default: null
+ *             filesystem?: scalar|Param|null, // Default: "sonata.media.filesystem.local"
+ *             cdn?: scalar|Param|null, // Default: "sonata.media.cdn.server"
+ *             generator?: scalar|Param|null, // Default: "sonata.media.generator.default"
+ *             thumbnail?: scalar|Param|null, // Default: "sonata.media.thumbnail.file"
+ *             allowed_extensions?: list<scalar|Param|null>,
+ *             allowed_mime_types?: list<scalar|Param|null>,
+ *         },
+ *         image?: array{
+ *             service?: scalar|Param|null, // Default: "sonata.media.provider.image"
+ *             resizer?: scalar|Param|null, // Default: "sonata.media.resizer.default"
+ *             filesystem?: scalar|Param|null, // Default: "sonata.media.filesystem.local"
+ *             cdn?: scalar|Param|null, // Default: "sonata.media.cdn.server"
+ *             generator?: scalar|Param|null, // Default: "sonata.media.generator.default"
+ *             thumbnail?: scalar|Param|null, // Default: "sonata.media.thumbnail.format"
+ *             adapter?: scalar|Param|null, // Default: "sonata.media.adapter.image.default"
+ *             allowed_extensions?: list<scalar|Param|null>,
+ *             allowed_mime_types?: list<scalar|Param|null>,
+ *         },
+ *         youtube?: array{
+ *             service?: scalar|Param|null, // Default: "sonata.media.provider.youtube"
+ *             resizer?: scalar|Param|null, // Default: "sonata.media.resizer.default"
+ *             filesystem?: scalar|Param|null, // Default: "sonata.media.filesystem.local"
+ *             cdn?: scalar|Param|null, // Default: "sonata.media.cdn.server"
+ *             generator?: scalar|Param|null, // Default: "sonata.media.generator.default"
+ *             thumbnail?: scalar|Param|null, // Default: "sonata.media.thumbnail.format"
+ *             html5?: scalar|Param|null, // Default: false
+ *         },
+ *         dailymotion?: array{
+ *             service?: scalar|Param|null, // Default: "sonata.media.provider.dailymotion"
+ *             resizer?: scalar|Param|null, // Default: "sonata.media.resizer.default"
+ *             filesystem?: scalar|Param|null, // Default: "sonata.media.filesystem.local"
+ *             cdn?: scalar|Param|null, // Default: "sonata.media.cdn.server"
+ *             generator?: scalar|Param|null, // Default: "sonata.media.generator.default"
+ *             thumbnail?: scalar|Param|null, // Default: "sonata.media.thumbnail.format"
+ *         },
+ *         vimeo?: array{
+ *             service?: scalar|Param|null, // Default: "sonata.media.provider.vimeo"
+ *             resizer?: scalar|Param|null, // Default: "sonata.media.resizer.default"
+ *             filesystem?: scalar|Param|null, // Default: "sonata.media.filesystem.local"
+ *             cdn?: scalar|Param|null, // Default: "sonata.media.cdn.server"
+ *             generator?: scalar|Param|null, // Default: "sonata.media.generator.default"
+ *             thumbnail?: scalar|Param|null, // Default: "sonata.media.thumbnail.format"
+ *         },
+ *     },
+ *     class?: array{
+ *         media?: scalar|Param|null, // Default: "App\\Entity\\SonataMediaMedia"
+ *         gallery?: scalar|Param|null, // Default: "App\\Entity\\SonataMediaGallery"
+ *         gallery_item?: scalar|Param|null, // Default: "App\\Entity\\SonataMediaGalleryItem"
+ *         category?: scalar|Param|null, // Default: "App\\Entity\\SonataClassificationCategory"
+ *     },
+ *     http?: array{
+ *         client?: scalar|Param|null, // Alias of the http client. // Default: "sonata.media.http.base_client"
+ *         message_factory?: scalar|Param|null, // Alias of the message factory. // Default: "sonata.media.http.base_message_factory"
+ *     },
+ *     resizer?: array{
+ *         simple?: array{
+ *             mode?: int|Param, // Default: 1
+ *         },
+ *         square?: array{
+ *             mode?: int|Param, // Default: 1
+ *         },
+ *     },
+ *     resizers?: array{
+ *         default?: scalar|Param|null, // Default: "sonata.media.resizer.simple"
+ *     },
+ *     adapters?: array{
+ *         default?: scalar|Param|null, // Default: "sonata.media.adapter.image.gd"
+ *     },
+ *     messenger?: bool|array{
+ *         enabled?: bool|Param, // Default: false
+ *         generate_thumbnails_bus?: scalar|Param|null, // Default: "messenger.default_bus"
+ *     },
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1939,6 +2105,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     twig_component?: TwigComponentConfig,
  *     monolog?: MonologConfig,
  *     stof_doctrine_extensions?: StofDoctrineExtensionsConfig,
+ *     sonata_media?: SonataMediaConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -1964,6 +2131,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_component?: TwigComponentConfig,
  *         monolog?: MonologConfig,
  *         stof_doctrine_extensions?: StofDoctrineExtensionsConfig,
+ *         sonata_media?: SonataMediaConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -1988,6 +2156,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_component?: TwigComponentConfig,
  *         monolog?: MonologConfig,
  *         stof_doctrine_extensions?: StofDoctrineExtensionsConfig,
+ *         sonata_media?: SonataMediaConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -2013,6 +2182,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_component?: TwigComponentConfig,
  *         monolog?: MonologConfig,
  *         stof_doctrine_extensions?: StofDoctrineExtensionsConfig,
+ *         sonata_media?: SonataMediaConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,

@@ -8,6 +8,9 @@
 
     <section class="container mt-4 pt-lg-2 pb-3">
         <h1 class="pb-3" style="max-width: 970px;">{{ post.name }}</h1>
+        {% if post.cover %}
+            <img src="{{ sonata_path(post.cover, 'small') }}" alt="{{ post.name }}" class="card-img-top">
+        {% endif %}
     </section>
 
     <section class="container mb-5 pt-4 pb-2 py-mg-4">

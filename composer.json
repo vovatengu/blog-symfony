@@ -15,6 +15,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.8",
         "sonata-project/admin-bundle": "^4.42",
         "sonata-project/doctrine-orm-admin-bundle": "^4.21",
+        "sonata-project/media-bundle": "^4.20",
         "sonata-project/user-bundle": "^5.19",
         "stof/doctrine-extensions-bundle": "^1.15",
         "symfony/asset": "7.4.*",
