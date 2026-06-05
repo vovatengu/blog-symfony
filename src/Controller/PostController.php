@@ -87,6 +87,7 @@ class PostController extends AbstractController
 
         $postNew = new Post();
         $postNew->setName($transliteratedName);
+        $postNew->setSlug($postRepository->resolveUniqueSlug($postNew->getSlug()));
         $postNew->setBody($transliteratedBody);
         $postNew->setAuthor($post->getAuthor());
         $em->persist($postNew);

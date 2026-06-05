@@ -75,4 +75,24 @@ class PostRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getArrayResult();
     }
+
+    public function resolveUniqueSlug(string $slug): string
+    {
+        if (!$this->slugExists($slug)) {
+            return $slug;
+        }
+
+        $suffix = 2;
+        do {
+            $candidate = $slug.'-'.$suffix;
+            ++$suffix;
+        } while ($this->slugExists($candidate));
+
+        return $candidate;
+    }
+
+    private function slugExists(string $slug): bool
+    {
+        return null !== $this->findOneBy(['slug' => $slug]);
+    }
 }

@@ -117,6 +117,13 @@ class Post
         return $this->slug;
     }
 
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getAuthor(): ?SonataUserUser
     {
         return $this->author;
