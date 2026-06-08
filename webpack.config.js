@@ -16,8 +16,8 @@ Encore
 
     // https://symfony.com/doc/current/frontend/encore/copy-files.html#referencing-image-files-from-a-template
     .copyFiles({
-        from: './assets/images',
-        to: 'images/[path][name].[hash:8].[ext]',
+        from: './assets/silicon/img',
+        to: 'silicon/[path][name].[ext]',
     })
 
     /*
@@ -27,10 +27,10 @@ Encore
      * and one CSS file (e.g. app.scss) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-    .addEntry('cv-template', './assets/cv-template.js')
-    .addEntry('lottie-player', './assets/lottie-player.js')
-    .addEntry('pay', './assets/js/global/pay.js')
-    // .addStyleEntry('cv-template', './assets/styles/cv-template.scss')
+    .addEntry('theme-switcher', './assets/silicon/js/theme-switcher.js')
+    // .addEntry('cv-template', './assets/cv-template.js')
+    // .addEntry('lottie-player', './assets/lottie-player.js')
+    // .addEntry('pay', './assets/js/global/pay.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

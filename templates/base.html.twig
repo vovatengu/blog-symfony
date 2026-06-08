@@ -8,15 +8,15 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {# Скрипт переключения светлой/тёмной темы — обязательно в <head>,
-       чтобы тема применялась до первой отрисовки страницы #}
-    <script src="{{ asset('assets/js/theme-switcher.js') }}"></script>
+    {# В <head> без defer — тема применяется до первой отрисовки #}
+    {{ encore_entry_script_tags('theme-switcher', attributes={defer: false}) }}
 
-    {# Иконки Boxicons (используются в навбаре, хлебных крошках, футере) #}
-    <link rel="stylesheet" href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-    {# Основные стили Silicon (Bootstrap 5 + кастомные стили темы) #}
-    <link rel="stylesheet" href="{{ asset('assets/css/silicon.css') }}">
+    {% block stylesheets_extra %}{% endblock %}
+
 </head>
 <body>
 
@@ -56,7 +56,7 @@
     <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
 </a>
 
-{# Основной JS темы Silicon (Bootstrap-бандл + плагины) #}
-<script src="{{ asset('assets/js/theme.min.js') }}"></script>
+{{ encore_entry_script_tags('app') }}
+{% block javascripts %}{% endblock %}
 </body>
 </html>

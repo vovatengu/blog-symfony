@@ -153,8 +153,8 @@ init:
 
 	@echo "==> [9/10] Installing dependencies and building assets..."
 	$(COMPOSE) exec app composer install --no-interaction --no-progress
-# 	$(COMPOSE) exec app npm install
-# 	$(COMPOSE) exec app npm run build
+	$(COMPOSE) exec app npm install
+	$(COMPOSE) exec app npm run build
 
 # 	@echo "==> [10/10] Installing git hooks..."
 # 	@$(MAKE) hooks

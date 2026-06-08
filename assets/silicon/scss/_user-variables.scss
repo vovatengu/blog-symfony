@@ -1,0 +1,12 @@
+//
+// user-variables.scss
+// Use this to override Bootstrap and Silicon variables
+//
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 960.001px,
+    xxl: 960.002px,
+);
