@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CounterController extends AbstractController
 {
-    public function showCounters(): Response
+    public function show(): Response
     {
-        return $this->render('layout/sidebar.html.twig');
+        return $this->render('counter/show.html.twig');
     }
 }
