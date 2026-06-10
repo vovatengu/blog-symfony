@@ -1,62 +1,41 @@
-<header class="header navbar navbar-expand-lg bg-light shadow-sm shadow-dark-mode-none fixed-top">
-    <div class="container px-3">
+<header class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container">
+        <a href="{{ path('app_home') }}" class="navbar-brand">Symfony Blog</a>
 
-        {# Логотип-ссылка на главную страницу блога #}
-        <a href="{{ path('app_home') }}" class="navbar-brand pe-3">
-            <img src="{{ asset('build/silicon/logo.svg') }}" width="47" alt="Silicon">
-            Silicon
-        </a>
-
-        {# Offcanvas-контейнер меню (на >= lg отображается как обычный navbar,
-            на мобильных — как боковая выезжающая панель) #}
-        <div id="navbarNav" class="offcanvas offcanvas-end">
-            <div class="offcanvas-header border-bottom">
-                <h5 class="offcanvas-title">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-
-                {# Ссылки меню — только страницы проекта (Blog + About) #}
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a href="{{ path('app_home') }}" class="nav-link">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('app_about') }}" class="nav-link">About</a>
-                    </li>
-                    {% if app.user %}
-                        <li class="nav-item">
-                            <a href="{{ path('app_logout') }}" class="nav-link">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <span class="nav-link text-reset" style="color: inherit;">Hello, {{ app.user.username }}!</span>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('app_post_new') }}" class="nav-link">New Post</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('app_user_index') }}" class="nav-link">My Posts</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a href="{{ path('app_login') }}" class="nav-link">Login</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-
-        {# Переключатель темы Light / Dark (поведение обеспечивает theme-switcher.js) #}
-        <div class="form-check form-switch mode-switch pe-lg-1 ms-auto me-4" data-bs-toggle="mode">
-            <input type="checkbox" class="form-check-input" id="theme-mode">
-            <label class="form-check-label d-none d-sm-block" for="theme-mode">Light</label>
-            <label class="form-check-label d-none d-sm-block" for="theme-mode">Dark</label>
-        </div>
-
-        {# Кнопка-«бургер» для открытия offcanvas-меню на мобильных #}
-        <button type="button" class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a href="{{ path('app_home') }}" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('app_about') }}" class="nav-link">About</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                {% if app.user %}
+                    <li class="nav-item">
+                        <span class="nav-link">Hello, {{ app.user.username }}!</span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('app_post_new') }}" class="nav-link">New Post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('app_user_index') }}" class="nav-link">My Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('app_logout') }}" class="nav-link">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_login') }}" class="nav-link">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
 </header>

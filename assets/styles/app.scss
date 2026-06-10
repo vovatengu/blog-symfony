@@ -1,7 +1,9 @@
 // Bootstrap подключается через assets/silicon/scss/theme.scss (из node_modules)
+//
+// // Breadcrumb divider, bx-* icons
+// @import 'boxicons/css/boxicons.min.css';
+//
+// // Silicon theme
+// @import '../silicon/scss/theme';
 
-// Breadcrumb divider, bx-* icons
-@import 'boxicons/css/boxicons.min.css';
-
-// Silicon theme
-@import '../silicon/scss/theme';
+@import 'bootstrap/scss/bootstrap';

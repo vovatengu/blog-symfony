@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block header %}
+        {% include 'layout/header.html.twig' %}
+    {% endblock %}
+
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-9">
+                {% block main_content %}{% endblock %}
+            </div>
+            {% block sidebar %}
+                {% include 'layout/sidebar.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+
+    {% block footer %}
+        {% include 'layout/footer.html.twig' %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,27 @@
+<article class="card mb-4">
+    <div class="card-body{% if editable|default(false) %} position-relative{% endif %}">
+        {% if editable|default(false) %}
+            <form action="{{ path('app_post_delete', {id: post.id}) }}" method="post" class="position-absolute top-0 end-0">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-post' ~ post.id) }}">
+                <button type="submit" class="btn btn-link p-0 text-decoration-none text-danger" aria-label="Delete post">&times;</button>
+            </form>
+        {% endif %}
+
+        {% if post.cover %}
+            <img src="{{ sonata_path(post.cover, 'reference') }}" alt="{{ post.name }}" class="img-fluid mb-3 rounded">
+        {% endif %}
+
+        <h2 class="h5">
+            <a href="{{ path('app_post', {slug: post.slug}) }}" class="text-decoration-none">{{ post.name }}</a>
+        </h2>
+        <div class="mb-3">{{ post.body | raw }}</div>
+
+        {% if post.author %}
+            <p class="text-muted small mb-3">{{ post.author.username }}</p>
+        {% endif %}
+
+        {% if editable|default(false) %}
+            <a href="{{ path('app_post_edit', {id: post.id}) }}" class="btn btn-primary btn-sm">Edit post</a>
+        {% endif %}
+    </div>
+</article>

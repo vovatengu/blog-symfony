@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block main_content %}
+    {% include 'layout/breadcrumb.html.twig' with { current: 'Edit post' } %}
+
+    <h1 class="mb-4">Edit Post</h1>
+    {% include 'layout/post_form.html.twig' with { form: form, submit_label: 'Update' } %}
+
+    <form method="post" action="{{ path('app_post_transliterate', {id: post.id}) }}" class="mt-3">
+        <input type="hidden" name="_token" value="{{ csrf_token('transliterate' ~ post.id) }}">
+        <button type="submit" class="btn btn-secondary">Transliterate</button>
+    </form>
+{% endblock %}

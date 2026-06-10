@@ -1,5 +1,6 @@
 {{ form_start(form) }}
     {{ form_row(form.name) }}
+    {# {{ form_row(form.cover) }} #}
     {{ form_row(form.body) }}
-    <button type="submit" class="btn btn-primary">{{ submit_label }}</button>
+    <button class="submit">{{ submit_label }}</button>
 {{ form_end(form) }}

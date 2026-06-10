@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block main_content %}
+    {% include 'layout/breadcrumb.html.twig' with { current: category.name } %}
+
+    <h1 class="mb-4">{{ category.name }}</h1>
+
+    {% for post in posts %}
+        {% include 'partial/post-card.html.twig' with { post: post } %}
+    {% else %}
+        <p class="text-muted">No posts in this category.</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign In | Silicon Symfony Demo{% endblock %}
+
+{% block body %}
+    <section class="position-relative pt-5 pb-4">
+        <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start pt-5">
+            <div class="w-100 pt-1 pt-md-4 pb-4" style="max-width: 526px;">
+                <h1 class="text-center text-xl-start">Welcome</h1>
+
+                {% if error %}
+                    <div class="alert alert-danger mt-3" role="alert">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                <form action="{{ path('app_login') }}" method="post" class="mt-3">
+                    <div class="mb-4">
+                        <label for="username" class="form-label fs-base">Email</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}"
+                               class="form-control form-control-lg" required autofocus>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label fs-base">Password</label>
+                        <input type="password" id="password" name="_password"
+                               class="form-control form-control-lg" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input type="checkbox" id="remember_me" name="_remember_me" class="form-check-input">
+                            <label for="remember_me" class="form-check-label fs-base">Remember me</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary shadow-primary btn-lg w-100">Sign in</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

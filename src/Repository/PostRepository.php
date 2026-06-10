@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\SonataUserUser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -74,6 +75,20 @@ class PostRepository extends ServiceEntityRepository
             ->andWhere('p.author = :author')
             ->setParameter('author', $author)
             ->orderBy('p.id', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findByCategory(Category $category): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->leftJoin('p.cover', 'c')
+            ->addSelect('c')
+            ->andWhere('p.category = :category')
+            // ->andWhere('p.isActive = :active')
+            ->setParameter('category', $category)
+            // ->setParameter('active', true)
+            ->orderBy('p.createdAt', 'DESC');
 
         return $queryBuilder->getQuery()->getResult();
     }

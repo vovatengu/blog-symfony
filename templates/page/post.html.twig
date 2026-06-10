@@ -1,26 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}{{ post.name }}{% endblock %}
 
-{% block body %}
-
+{% block main_content %}
     {% include 'layout/breadcrumb.html.twig' with { current: post.name } %}
 
-    <section class="container mt-4 pt-lg-2 pb-3">
-        <h1 class="pb-3" style="max-width: 970px;">{{ post.name }}</h1>
-        {% if post.cover %}
-            <img src="{{ sonata_path(post.cover, 'reference') }}" alt="{{ post.name }}" class="card-img-top">
-        {% endif %}
-    </section>
+    <h1 class="mb-3">{{ post.name }}</h1>
 
-    <section class="container mb-5 pt-4 pb-2 py-mg-4">
-        <div class="row gy-4">
-            <div class="col-lg-9">
-                <p class="mb-4 pb-2">{{ post.body | raw }}</p>
-            </div>
-        </div>
-    </section>
+    {% if post.cover %}
+        <img src="{{ sonata_path(post.cover, 'reference') }}" alt="{{ post.name }}" class="img-fluid rounded mb-4">
+    {% endif %}
+
+    <div class="mb-4">{{ post.body | raw }}</div>
 
     {% include 'layout/flash_messages.html.twig' %}
-
 {% endblock %}

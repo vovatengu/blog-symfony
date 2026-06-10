@@ -1,33 +1,17 @@
-{#
-  page/index.html.twig — главная страница блога.
-  Список постов из БД + сайдбар. Наследует base.html.twig (header + footer).
-#}
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Blog List with Sidebar | Silicon Symfony Demo{% endblock %}
+{% block title %}Blog{% endblock %}
 
-{% block body %}
+{% block main_content %}
+    {% include 'layout/breadcrumb.html.twig' with { current: 'Blog' } %}
+    {% include 'layout/page_header.html.twig' with {
+        title: 'Blog',
+        subtitle: 'Latest posts from the database.'
+    } %}
 
-    {% include 'layout/breadcrumb.html.twig' with { current: 'Blog List with Sidebar' } %}
-
-    <section class="container mt-4 mb-2 mb-md-4 mb-lg-5 pt-lg-2 pb-5">
-
-        {% include 'layout/page_header.html.twig' with {
-            title: 'Blog List with Sidebar',
-            subtitle: 'Nunc aliquet scelerisque pellentesque imperdiet tortor elit, dictum. Tristique odio at dignissim viverra aliquet eleifend erat.'
-        } %}
-
-        <div class="row">
-            <div class="col-xl-9 col-lg-8">
-                {% for post in posts %}
-                    {% include 'layout/post_card.html.twig' with { post: post } %}
-                {% else %}
-                    <p class="text-muted">Постов пока нет.</p>
-                {% endfor %}
-            </div>
-
-            {% include 'layout/blog_sidebar.html.twig' with { show_counters: true } %}
-        </div>
-    </section>
-
+    {% for post in posts %}
+        {% include 'partial/post-card.html.twig' with { post: post } %}
+    {% else %}
+        <p class="text-muted">No posts yet.</p>
+    {% endfor %}
 {% endblock %}

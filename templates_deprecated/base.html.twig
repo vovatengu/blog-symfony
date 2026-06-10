@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8">
+
+    {# Title вкладки браузера — переопределяется в дочерних шаблонах #}
+    <title>{% block title %}Silicon Symfony Demo{% endblock %} : my block</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# В <head> без defer — тема применяется до первой отрисовки #}
+    {{ encore_entry_script_tags('theme-switcher', attributes={defer: false}) }}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block stylesheets_extra %}{% endblock %}
+
+</head>
+<body>
+
+{# ===========================================================================
+   PAGE-WRAPPER — оборачивает header и весь контент страницы,
+   чтобы футер прижимался к низу окна (sticky footer Silicon).
+   =========================================================================== #}
+<main class="page-wrapper">
+
+    {# =======================================================================
+       HEADER + MENU
+       Верхняя фиксированная навигация (Silicon: navbar fixed-top).
+       Содержит: логотип, offcanvas-меню со ссылками, переключатель темы,
+       кнопку-бургер для мобильных.
+       ======================================================================= #}
+    {% include 'layout/header.html.twig' %}
+
+    {# =======================================================================
+       BODY — основной контент страницы.
+       Дочерние шаблоны (Blog / About) вставляют сюда свой контент:
+       h1, текст, список постов, сайдбар и т.д.
+       ======================================================================= #}
+    {% block body %}{% endblock %}
+
+</main>
+
+{# ===========================================================================
+   FOOTER + MENU
+   Тёмный футер Silicon: бренд + описание, колонки ссылок (меню сайта,
+   соцсети, контакты), копирайт.
+   =========================================================================== #}
+{% include 'layout/footer.html.twig' %}
+
+{# Кнопка «Наверх» — фиксированная плавающая кнопка прокрутки к началу страницы #}
+<a href="#top" class="btn-scroll-top mb-4 mb-lg-0" data-scroll>
+    <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span>
+    <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+</a>
+
+{{ encore_entry_script_tags('app') }}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

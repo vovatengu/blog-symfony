@@ -43,7 +43,7 @@ class PostController extends AbstractController
             return $this->redirectToRoute('app_post', ['slug' => $post->getSlug()]);
         }
 
-        return $this->render(null === $id ? 'post/new.html.twig' : 'post/edit.html.twig', [
+        return $this->render(null === $id ? 'user/post/new.html.twig' : 'user/post/edit.html.twig', [
             'form' => $form->createView(),
             'post' => $post,
         ]);

@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Create New Post{% endblock %}
+
+{% block main_content %}
+    {% include 'layout/breadcrumb.html.twig' with { current: 'New post' } %}
+
+    <h1 class="mb-4">Create New Post</h1>
+    {% include 'layout/post_form.html.twig' with { form: form, submit_label: 'Create' } %}
+{% endblock %}
