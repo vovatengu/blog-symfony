@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\SonataUserUser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -42,6 +43,12 @@ class PostRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findAllQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'DESC');
+    }
 
     public function findaAllActivePosts(): array
     {

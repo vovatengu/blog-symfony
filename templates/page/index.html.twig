@@ -9,9 +9,14 @@
         subtitle: 'Latest posts from the database.'
     } %}
 
-    {% for post in posts %}
+    {% for post in pagination %}
         {% include 'partial/post-card.html.twig' with { post: post } %}
     {% else %}
         <p class="text-muted">No posts yet.</p>
     {% endfor %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
 {% endblock %}
