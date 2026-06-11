@@ -1,4 +1,7 @@
-{% set messages = app.session.flashbag.get(type|default('success')) %}
-{% if messages is not empty %}
-    <div class="alert alert-success" role="alert">{{ messages|last }}</div>
-{% endif %}
+{% for label, messages in app.flashes(['success', 'warning']) %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}

@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -16,9 +17,19 @@ class Post
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: 'The name should not be blank.')]
+    #[Assert\Length(
+        min: 30,
+        minMessage: 'The name must be at least {{ limit }} characters long.',
+    )]
     #[ORM\Column(length: 255)]
     private string $name = '';
 
+    #[Assert\NotBlank(message: 'The body should not be blank.')]
+    #[Assert\Length(
+        min: 500,
+        minMessage: 'The body must be at least {{ limit }} characters long.',
+    )]
     #[ORM\Column(type: Types::TEXT)]
     private string $body = '';
 

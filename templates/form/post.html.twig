@@ -1,4 +1,6 @@
 {{ form_start(form) }}
+    {# Errors #}
+    {{ form_errors(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.body) }}
     <button type="submit" class="btn btn-primary">{{ submit_label }}</button>

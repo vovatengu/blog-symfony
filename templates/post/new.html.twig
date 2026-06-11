@@ -6,5 +6,6 @@
     {% include 'layout/breadcrumb.html.twig' with { current: 'New post' } %}
 
     <h1 class="mb-4">Create New Post</h1>
-    {% include 'layout/post_form.html.twig' with { form: form, submit_label: 'Create' } %}
+    {% include 'form/post.html.twig' with { form: form, submit_label: 'Create' } %}
+    {% include 'layout/flash_messages.html.twig' %}
 {% endblock %}

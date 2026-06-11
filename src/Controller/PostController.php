@@ -34,16 +34,20 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $post->setAuthor($user);
+        if ($form->isSubmitted()) {
+            if (!$form->isValid()) {
+                $this->addFlash('warning', 'Error! Please correct the errors in the form.');
+            } else {
+                $this->addFlash('success', 'Post successfully saved.');
+                $post->setAuthor($user);
+                $em->persist($post);
+                $em->flush();
 
-            $em->persist($post);
-            $em->flush();
-
-            return $this->redirectToRoute('app_post', ['slug' => $post->getSlug()]);
+                return $this->redirectToRoute('app_post', ['slug' => $post->getSlug()]);
+            }
         }
 
-        return $this->render(null === $id ? 'user/post/new.html.twig' : 'user/post/edit.html.twig', [
+        return $this->render(null === $id ? 'post/new.html.twig' : 'post/edit.html.twig', [
             'form' => $form->createView(),
             'post' => $post,
         ]);
